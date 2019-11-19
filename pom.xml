@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.1.RELEASE</version>
+	</parent>
+	<groupId>br.com.bpd</groupId>
+	<artifactId>bpd</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>BrasilPrev Digital</name>
+	<description>Parent project for BPD</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<bpd.version>0.0.1-SNAPSHOT</bpd.version>
+	</properties>
+
+	<organization>
+		<name>BrasilPrev</name>
+		<url>https://www1.brasilprev.com.br/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>renatohberg</id>
+			<name>Renato H. Berg Neves</name>
+			<email>renatohberg@gmail.com</email>
+		</developer>
+	</developers>
+
+	<modules>
+		<module>bpd-common-bean</module>
+		<module>bpd-common</module>
+		<module>bpd-api</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- BPD Group -->
+			<dependency>
+				<groupId>br.com.bpd</groupId>
+				<artifactId>bpd-common-bean</artifactId>
+				<version>${bpd.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>br.com.bpd</groupId>
+				<artifactId>bpd-common</artifactId>
+				<version>${bpd.version}</version>
+			</dependency>
+			
+			<!-- Third Party -->
+		</dependencies>
+	</dependencyManagement>
+
+</project>
