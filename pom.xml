@@ -2,11 +2,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.1.RELEASE</version>
-	</parent>
 	<groupId>br.com.bpd</groupId>
 	<artifactId>bpd</artifactId>
 	<packaging>pom</packaging>
@@ -17,6 +12,9 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<bpd.version>0.0.1-SNAPSHOT</bpd.version>
+	    <jakarta-persistence.version>2.2.3</jakarta-persistence.version>
+	    <spring.framework.version>5.2.1.RELEASE</spring.framework.version>
+	    <spring.framework.data.version>2.2.1.RELEASE</spring.framework.data.version>
 	</properties>
 
 	<organization>
@@ -53,6 +51,31 @@
 			</dependency>
 			
 			<!-- Third Party -->
+			<dependency>
+				<groupId>jakarta.persistence</groupId>
+				<artifactId>jakarta.persistence-api</artifactId>
+				<version>${jakarta-persistence.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-commons</artifactId>
+				<version>${spring.framework.data.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

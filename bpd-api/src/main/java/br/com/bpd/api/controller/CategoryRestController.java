@@ -28,7 +28,7 @@ public class CategoryRestController {
 	@Autowired
 	private CategoryService categoryService;
 
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Category> create(final @RequestBody Category category) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
@@ -36,7 +36,7 @@ public class CategoryRestController {
 		return new ResponseEntity<Category>(newCategory, headers, HttpStatus.OK);
 	}
 
-	@GetMapping(value = PathsApiServices.ROOT + "{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = PathsApiServices.ROOT + "{id}", consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Category> read(final @PathVariable("id") long id) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
@@ -49,19 +49,20 @@ public class CategoryRestController {
 		}
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Category> update(final @RequestBody Category category) {
+	@PostMapping(value = PathsApiServices.ROOT + "{id}", consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Category> update(final @PathVariable("id") long id, final @RequestBody Category category) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
-		Category newCategory = categoryService.save(category);
+		Category newCategory = categoryService.update(id, category);
 		return new ResponseEntity<Category>(newCategory, headers, HttpStatus.OK);
 	}
 
-	@DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = PathsApiServices.ROOT + "{id}", consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> delete(final @PathVariable("id") long id) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
-		Boolean deleted = categoryService.deleteById(id);
+		boolean deleted = categoryService.deleteById(id);
+
 		return new ResponseEntity<Boolean>(deleted, headers, HttpStatus.OK);
 	}
 

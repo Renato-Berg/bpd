@@ -2,6 +2,7 @@ package br.com.bpd.common.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,57 +16,48 @@ public class Category implements Serializable {
 	private static final long serialVersionUID = -6563347584813505638L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private String idCategoria;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idCategoria", updatable = false)
+	private long idCategoria;
 	private String categoria;
 
 	/**
 	 * @return the idCategoria
 	 */
-	public final String getIdCategoria() {
+	public long getIdCategoria() {
 		return idCategoria;
 	}
 
 	/**
 	 * @param idCategoria the idCategoria to set
 	 */
-	public final void setIdCategoria(String idCategoria) {
+	public void setIdCategoria(long idCategoria) {
 		this.idCategoria = idCategoria;
 	}
 
 	/**
 	 * @return the categoria
 	 */
-	public final String getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
 	/**
 	 * @param categoria the categoria to set
 	 */
-	public final void setCategoria(String categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
-		result = prime * result + ((idCategoria == null) ? 0 : idCategoria.hashCode());
+		result = prime * result + (int) (idCategoria ^ (idCategoria >>> 32));
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -80,19 +72,11 @@ public class Category implements Serializable {
 				return false;
 		} else if (!categoria.equals(other.categoria))
 			return false;
-		if (idCategoria == null) {
-			if (other.idCategoria != null)
-				return false;
-		} else if (!idCategoria.equals(other.idCategoria))
+		if (idCategoria != other.idCategoria)
 			return false;
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "Category [idCategoria=" + idCategoria + ", categoria=" + categoria + "]";

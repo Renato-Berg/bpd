@@ -1,4 +1,4 @@
-package br.com.bpd.common.application;
+package br.com.bpd.common.config;
 
 import java.util.HashMap;
 
@@ -16,25 +16,25 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class SlaveDataSourceConfig {
 
-	@Value("#{systemProperties['spring.datasource.url.slave']}")
+	@Value("#{systemProperties['spring.datasource.url.slave'] ?: 'jdbc:mysql://localhost:3306/bpdDb?useTimezone=true&serverTimezone=UTC'}")
 	private String slaveUrl;
 
-	@Value("#{systemProperties['spring.datasource.username.slave']}")
+	@Value("#{systemProperties['spring.datasource.username.slave'] ?: 'bpdUser'}")
 	private String slaveUsername;
 
-	@Value("#{systemProperties['spring.datasource.password.slave']}")
+	@Value("#{systemProperties['spring.datasource.password.slave'] ?: '@Gh0st!'}")
 	private String slavePassword;
 
-	@Value("#{systemProperties['spring.datasource.driver-class-name.slave']}")
+	@Value("#{systemProperties['spring.datasource.driver-class-name.slave'] ?: 'com.mysql.cj.jdbc.Driver'}")
 	private String slaveDriverClassName;
 
-	@Value("#{systemProperties['spring.jpa.properties.hibernate.dialect.slave']}")
+	@Value("#{systemProperties['spring.jpa.properties.hibernate.dialect.slave'] ?: 'org.hibernate.dialect.MySQLDialect'}")
 	private String slaveJpaHibernateDialect;
 
-	@Value("#{systemProperties['spring.jpa.show-sql.slave']}")
+	@Value("#{systemProperties['spring.jpa.show-sql.slave'] ?: true}")
 	private String slaveShowSql;
 
-	@Bean
+	@Bean(name = "slaveDatasource")
 	public DataSource slaveDatasource() {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -60,7 +60,7 @@ public class SlaveDataSourceConfig {
 
 		em.setJpaVendorAdapter(vendorAdapter);
 
-		HashMap<String, Object> properties = new HashMap<>();
+		HashMap<String, Object> properties = new HashMap<String, Object>();
 
 		// JPA & Hibernate
 		properties.put("hibernate.dialect", slaveJpaHibernateDialect);

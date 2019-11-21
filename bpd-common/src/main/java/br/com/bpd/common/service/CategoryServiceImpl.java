@@ -22,6 +22,11 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	public Category update(Long idCategoria, Category category) {
+		return categoryRepository.update(idCategoria, category);
+	}
+
+	@Override
 	public Optional<Category> findById(long id) {
 		return categoryRepository.findById(id);
 	}
@@ -37,8 +42,8 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public boolean deleteById(long id) {
-		return categoryRepository.deleteById(id);
+	public boolean deleteById(Long idCategoria) {
+		return categoryRepository.deleteById(idCategoria);
 	}
 
 }

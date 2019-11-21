@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +20,14 @@ import br.com.bpd.common.service.CategoryService;
 import br.com.bpd.common.validator.GenericValidator;
 
 @RestController
+@RequestMapping(value = PathsApiServices.ROOT + PathsApiServices.CATEGORIES)
 public class CategoriesRestController {
 
 	@Autowired
 	private CategoryService categoryService;
 
-	@GetMapping(value = PathsApiServices.CATEGORIES, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> list(@RequestParam(value = "qtyItens", required = false) int qtyItens, @RequestParam(value = "indexPagination", required = false) int indexPagination, @RequestParam(value = "orderField", required = false) String orderField, @RequestParam(value = "order", required = false) String order) {
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> list(@RequestParam(value = "qtyItens", required = false) Integer qtyItens, @RequestParam(value = "indexPagination", required = false) Integer indexPagination, @RequestParam(value = "orderField", required = false) String orderField, @RequestParam(value = "order", required = false) String order) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
 		int totalOfRegisters = categoryService.count();

@@ -10,6 +10,8 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.bpd.common.bean.Category;
 
@@ -25,10 +27,22 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	EntityManager slaveEntityManager;
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Category save(Category category) {
-		masterEntityManager.getTransaction().begin();
 		masterEntityManager.persist(category);
-		masterEntityManager.getTransaction().commit();
+
+		return category;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public Category update(long idCategoria, Category category) {
+		if (category != null && category.getIdCategoria() == idCategoria) {
+			masterEntityManager.merge(category);
+		} else {
+			masterEntityManager.remove(category);
+			masterEntityManager.persist(category);
+		}
 
 		return category;
 	}
@@ -40,28 +54,33 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
 	@Override
 	public int count() {
-		return ((Integer) slaveEntityManager.createQuery("SELECT COUNT(c) FROM Category c").getSingleResult()).intValue();
+		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(c) FROM Category c").getSingleResult()).intValue();
 	}
 
 	@Override
 	public List<Category> findAll(Pageable pageable) {
-		TypedQuery<Category> query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c." + pageable.getSort(), Category.class);
-		query.setFirstResult(pageable.getPageNumber());
-		query.setMaxResults(pageable.getPageSize());
+		TypedQuery<Category> query;
+		
+		if (pageable != null) {
+			query = slaveEntityManager.createQuery("SELECT c FROM Category c", Category.class);
+			query.setFirstResult(pageable.getPageNumber());
+			query.setMaxResults(pageable.getPageSize());
+		} else {
+			query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c.idCategoria", Category.class);
+		}
 		
 		return query.getResultList();
 	}
 
 	@Override
-	public boolean deleteById(long id) {
+	@Transactional
+	public boolean deleteById(long idCategoria) {
 		try {
-			Optional<Category> optionalCategory = this.findById(id);
+			Optional<Category> optionalCategory = Optional.of(masterEntityManager.find(Category.class, idCategoria));
 			if (optionalCategory.isPresent()) {
 				Category category = optionalCategory.get();
 				
-				masterEntityManager.getTransaction().begin();
 				masterEntityManager.remove(category);
-				masterEntityManager.getTransaction().commit();
 			} else {
 				return false;
 			}

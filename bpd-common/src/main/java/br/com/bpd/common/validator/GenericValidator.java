@@ -9,11 +9,11 @@ import org.springframework.validation.Validator;
 @Component
 public abstract class GenericValidator implements Validator {
 
-	public static PageRequest validateListFields(int qtyItens, int indexPagination, int totalOfRegisters, String orderFieldParam, String orderParam) {
+	public static PageRequest validateListFields(Integer qtyItens, Integer indexPagination, Integer totalOfRegisters, String orderFieldParam, String orderParam) {
 		orderFieldParam = GenericValidator.validateString(orderFieldParam);
 		orderParam = GenericValidator.validateString(orderParam);
 		
-		if (qtyItens > 0 && indexPagination > 0 && totalOfRegisters > 0 && orderFieldParam != null && !orderFieldParam.isEmpty()) {
+		if ((qtyItens != null && qtyItens > 0) && (indexPagination != null && indexPagination > 0) && (totalOfRegisters != null && totalOfRegisters > 0) && (orderFieldParam != null && !orderFieldParam.isEmpty())) {
 			int qtyPagination = ((totalOfRegisters + qtyItens - 1) / qtyItens);
 			indexPagination = ((indexPagination <= (qtyPagination - 1)) ? indexPagination : ((qtyPagination - 1 >= 0) ? (qtyPagination - 1) : 0));
 			

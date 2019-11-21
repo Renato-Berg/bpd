@@ -12,12 +12,14 @@ public interface CategoryRepository extends Repository<Category, Long> {
 
 	Category save(Category category);
 
+	Category update(long idCategoria, Category category);
+
 	Optional<Category> findById(long id);
 
 	int count();
 
 	List<Category> findAll(Pageable pageable);
 
-	boolean deleteById(long id);
+	boolean deleteById(long idCategoria);
 
 }
