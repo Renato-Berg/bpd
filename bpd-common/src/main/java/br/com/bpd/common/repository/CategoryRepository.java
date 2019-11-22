@@ -12,7 +12,7 @@ public interface CategoryRepository extends Repository<Category, Long> {
 
 	Category save(Category category);
 
-	Category update(long idCategoria, Category category);
+	Category update(Category category);
 
 	Optional<Category> findById(long id);
 
@@ -20,6 +20,6 @@ public interface CategoryRepository extends Repository<Category, Long> {
 
 	List<Category> findAll(Pageable pageable);
 
-	boolean deleteById(long idCategoria);
+	boolean deleteById(long id);
 
 }

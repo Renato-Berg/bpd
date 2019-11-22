@@ -1,4 +1,4 @@
-package br.com.bpd.api.application;
+package br.com.bpd.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

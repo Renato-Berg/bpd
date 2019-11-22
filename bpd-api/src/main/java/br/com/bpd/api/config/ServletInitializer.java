@@ -1,4 +1,4 @@
-package br.com.bpd.api.application;
+package br.com.bpd.api.config;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

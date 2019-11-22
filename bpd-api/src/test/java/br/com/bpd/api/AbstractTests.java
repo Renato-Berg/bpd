@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.bpd.api.application.BrasilPrevDigitalApiApplication;
+import br.com.bpd.api.config.BrasilPrevDigitalApiApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = BrasilPrevDigitalApiApplication.class)

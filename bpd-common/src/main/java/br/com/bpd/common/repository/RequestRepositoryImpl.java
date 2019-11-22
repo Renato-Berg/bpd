@@ -13,10 +13,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.bpd.common.bean.Category;
+import br.com.bpd.common.bean.Request;
 
 @Repository
-public class CategoryRepositoryImpl implements CategoryRepository {
+public class RequestRepositoryImpl implements RequestRepository {
 
 	@Autowired
 	@PersistenceContext(unitName = "masterEntityManager")
@@ -28,23 +28,23 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Category save(Category category) {
-		masterEntityManager.persist(category);
+	public Request save(Request request) {
+		masterEntityManager.persist(request);
 
-		return category;
+		return request;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Category update(Category category) {
-		masterEntityManager.merge(category);
+	public Request update(Request request) {
+		masterEntityManager.merge(request);
 
-		return category;
+		return request;
 	}
 
 	@Override
-	public Optional<Category> findById(long id) {
-		return Optional.of(slaveEntityManager.find(Category.class, id));
+	public Optional<Request> findById(long id) {
+		return Optional.of(slaveEntityManager.find(Request.class, id));
 	}
 
 	@Override
@@ -53,15 +53,15 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	}
 
 	@Override
-	public List<Category> findAll(Pageable pageable) {
-		TypedQuery<Category> query;
+	public List<Request> findAll(Pageable pageable) {
+		TypedQuery<Request> query;
 		
 		if (pageable != null) {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c", Category.class);
+			query = slaveEntityManager.createQuery("SELECT c FROM Category c", Request.class);
 			query.setFirstResult(pageable.getPageNumber());
 			query.setMaxResults(pageable.getPageSize());
 		} else {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c.idCategoria", Category.class);
+			query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c.idCategoria", Request.class);
 		}
 		
 		return query.getResultList();
@@ -71,11 +71,11 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public boolean deleteById(long id) {
 		try {
-			Optional<Category> optionalCategory = Optional.of(masterEntityManager.find(Category.class, id));
-			if (optionalCategory.isPresent()) {
-				Category category = optionalCategory.get();
+			Optional<Request> optionalRequest = Optional.of(masterEntityManager.find(Request.class, id));
+			if (optionalRequest.isPresent()) {
+				Request request = optionalRequest.get();
 				
-				masterEntityManager.remove(category);
+				masterEntityManager.remove(request);
 			} else {
 				return false;
 			}

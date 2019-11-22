@@ -11,7 +11,7 @@ public interface CategoryService {
 
 	Category save(Category category);
 
-	Category update(Long idCategoria, Category category);
+	Category update(Category category);
 
 	Optional<Category> findById(long id);
 
@@ -19,6 +19,6 @@ public interface CategoryService {
 
 	List<Category> findAll(Pageable pageable);
 
-	boolean deleteById(Long idCategoria);
+	boolean deleteById(Long id);
 
 }

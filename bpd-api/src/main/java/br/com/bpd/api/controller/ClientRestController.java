@@ -17,51 +17,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bpd.common.bean.Category;
+import br.com.bpd.common.bean.Client;
 import br.com.bpd.common.constants.PathsApiServices;
-import br.com.bpd.common.service.CategoryService;
+import br.com.bpd.common.service.ClientService;
 
 @RestController
-@RequestMapping(value = PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORY)
-public class CategoryRestController {
+@RequestMapping(value = PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CLIENT)
+public class ClientRestController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private ClientService clientService;
 
 	@PutMapping(consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Category> create(final @RequestBody Category category) {
+	public ResponseEntity<Client> create(final @RequestBody Client client) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
-		Category newCategory = categoryService.save(category);
-		return new ResponseEntity<Category>(newCategory, headers, HttpStatus.OK);
+		Client newClient = clientService.save(client);
+		return new ResponseEntity<Client>(newClient, headers, HttpStatus.OK);
 	}
 
 	@GetMapping(value = PathsApiServices.ROOT + PathsApiServices.ID, consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Category> read(final @PathVariable("id") long id) {
+	public ResponseEntity<Client> read(final @PathVariable("id") long id) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
-		Optional<Category> optionalCategory = categoryService.findById(id);
-		if (optionalCategory.isPresent()) {
-			Category category = optionalCategory.get();
-			return new ResponseEntity<Category>(category, headers, HttpStatus.OK);
+		Optional<Client> optionalClient = clientService.findById(id);
+		if (optionalClient.isPresent()) {
+			Client client = optionalClient.get();
+			return new ResponseEntity<Client>(client, headers, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Category>(null, headers, HttpStatus.OK);
+			return new ResponseEntity<Client>(null, headers, HttpStatus.OK);
 		}
 	}
 
 	@PostMapping(consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Category> update(final @RequestBody Category category) {
+	public ResponseEntity<Client> update(final @RequestBody Client client) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
-		Category newCategory = categoryService.update(category);
-		return new ResponseEntity<Category>(newCategory, headers, HttpStatus.OK);
+		Client newClient = clientService.update(client);
+		return new ResponseEntity<Client>(newClient, headers, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = PathsApiServices.ROOT + PathsApiServices.ID, consumes = { MediaType.TEXT_HTML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> delete(final @PathVariable("id") long id) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
-		boolean deleted = categoryService.deleteById(id);
+		boolean deleted = clientService.deleteById(id);
 
 		return new ResponseEntity<Boolean>(deleted, headers, HttpStatus.OK);
 	}

@@ -26,13 +26,13 @@ class CategoryTests extends AbstractTests {
 	@Order(1)
 	public void create() throws Exception {
 		category = new Category();
-		category.setCategoria("Category Test");
+		category.setCategory("Category Test");
 		
 		String inputJson = super.mapToJson(category);
 		MvcResult mvcResult = mockMvc
 				.perform(
 						MockMvcRequestBuilders
-						.put(PathsApiServices.ROOT + PathsApiServices.CATEGORY)
+						.put(PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORY)
 						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content(inputJson))
 				.andReturn();
@@ -50,7 +50,7 @@ class CategoryTests extends AbstractTests {
 		MvcResult mvcResult = mockMvc
 				.perform(
 						MockMvcRequestBuilders
-						.get(PathsApiServices.ROOT + PathsApiServices.CATEGORY + PathsApiServices.ROOT + category.getIdCategoria())
+						.get(PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORY + PathsApiServices.ROOT + category.getIdCategoria())
 						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
@@ -68,7 +68,7 @@ class CategoryTests extends AbstractTests {
 		MvcResult mvcResult = mockMvc
 				.perform(
 						MockMvcRequestBuilders
-						.get(PathsApiServices.ROOT + PathsApiServices.CATEGORIES)
+						.get(PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORIES)
 						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.accept(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
@@ -86,7 +86,7 @@ class CategoryTests extends AbstractTests {
 		MvcResult mvcResult = mockMvc
 				.perform(
 						MockMvcRequestBuilders
-						.get(PathsApiServices.ROOT + PathsApiServices.CATEGORIES)
+						.get(PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORIES)
 						.param("qtyItens", "10")
 						.param("indexPagination", "1")
 						.param("orderField", "idCategoria")
@@ -105,13 +105,13 @@ class CategoryTests extends AbstractTests {
 	@Test
 	@Order(5)
 	public void update() throws Exception {
-		category.setCategoria("Category Test Updated");
+		category.setCategory("Category Test Updated");
 		
 		String inputJson = super.mapToJson(category);
 		MvcResult mvcResult = mockMvc
 				.perform(
 						MockMvcRequestBuilders
-						.post(PathsApiServices.ROOT + PathsApiServices.CATEGORY + PathsApiServices.ROOT + category.getIdCategoria())
+						.post(PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORY)
 						.contentType(MediaType.APPLICATION_JSON_VALUE)
 						.content(inputJson))
 				.andReturn();
@@ -129,7 +129,7 @@ class CategoryTests extends AbstractTests {
 		MvcResult mvcResult = mockMvc
 				.perform(
 						MockMvcRequestBuilders
-						.delete(PathsApiServices.ROOT + PathsApiServices.CATEGORY + PathsApiServices.ROOT + category.getIdCategoria())
+						.delete(PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORY + PathsApiServices.ROOT + category.getIdCategoria())
 						.contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
 		int status = mvcResult.getResponse().getStatus();

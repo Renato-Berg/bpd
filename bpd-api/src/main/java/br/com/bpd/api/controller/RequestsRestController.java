@@ -14,33 +14,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bpd.common.bean.Category;
+import br.com.bpd.common.bean.Request;
 import br.com.bpd.common.constants.PathsApiServices;
-import br.com.bpd.common.service.CategoryService;
+import br.com.bpd.common.service.RequestService;
 import br.com.bpd.common.validator.GenericValidator;
 
 @RestController
-@RequestMapping(value = PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.CATEGORIES)
-public class CategoriesRestController {
+@RequestMapping(value = PathsApiServices.ROOT + PathsApiServices.VERSION + PathsApiServices.ROOT + PathsApiServices.REQUESTS)
+public class RequestsRestController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private RequestService requestService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> list(@RequestParam(value = "qtyItens", required = false) Integer qtyItens, @RequestParam(value = "indexPagination", required = false) Integer indexPagination, @RequestParam(value = "orderField", required = false) String orderField, @RequestParam(value = "order", required = false) String order) {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		
-		int totalOfRegisters = categoryService.count();
+		int totalOfRegisters = requestService.count();
 		PageRequest pageRequest = GenericValidator.validateListFields(qtyItens, indexPagination, totalOfRegisters, orderField, order);
 
-		List<Category> categories;
+		List<Request> requests;
 		if (pageRequest != null) {
-			categories = categoryService.findAll(pageRequest);
+			requests = requestService.findAll(pageRequest);
 		} else {
-			categories = categoryService.findAll(null);
+			requests = requestService.findAll(null);
 		}
 		
-		return new ResponseEntity<Object>(categories, headers, HttpStatus.OK);
+		return new ResponseEntity<Object>(requests, headers, HttpStatus.OK);
 	}
 
 }
