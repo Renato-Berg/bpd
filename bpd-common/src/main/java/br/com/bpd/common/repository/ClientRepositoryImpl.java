@@ -49,7 +49,7 @@ public class ClientRepositoryImpl implements ClientRepository {
 
 	@Override
 	public int count() {
-		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(c) FROM Category c").getSingleResult()).intValue();
+		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(c) FROM Client c").getSingleResult()).intValue();
 	}
 
 	@Override
@@ -57,11 +57,11 @@ public class ClientRepositoryImpl implements ClientRepository {
 		TypedQuery<Client> query;
 		
 		if (pageable != null) {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c", Client.class);
+			query = slaveEntityManager.createQuery("SELECT c FROM Client c", Client.class);
 			query.setFirstResult(pageable.getPageNumber());
 			query.setMaxResults(pageable.getPageSize());
 		} else {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c.idCategoria", Client.class);
+			query = slaveEntityManager.createQuery("SELECT c FROM Client c ORDER BY c.idCliente", Client.class);
 		}
 		
 		return query.getResultList();

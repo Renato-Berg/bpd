@@ -2,11 +2,14 @@ package br.com.bpd.common.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +22,11 @@ public class RequestItem implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idItem", updatable = false, nullable = false)
 	private Long idItem;
+	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+	@JoinColumn(name="idPedido")
 	private Request request;
+	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+	@JoinColumn(name="idProduto")
 	private Product product;
 	@Column(name = "produto")
 	private String productDesc;

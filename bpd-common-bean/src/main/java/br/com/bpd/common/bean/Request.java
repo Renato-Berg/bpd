@@ -1,14 +1,22 @@
 package br.com.bpd.common.bean;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Entity
 @Table(name = "PEDIDOS")
@@ -21,7 +29,11 @@ public class Request implements Serializable {
 	@Column(name = "idPedido", updatable = false, nullable = false)
 	private Long idRequest;
 	@Column(name = "data")
-	private LocalDate date;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime date;
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "idCliente")
 	private Client client;
 	@Column(name = "status")
 	private String status;
@@ -45,14 +57,14 @@ public class Request implements Serializable {
 	/**
 	 * @return the date
 	 */
-	public LocalDate getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(LocalDate date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 

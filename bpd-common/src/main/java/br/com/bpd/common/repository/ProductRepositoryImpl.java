@@ -49,7 +49,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public int count() {
-		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(c) FROM Category c").getSingleResult()).intValue();
+		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(p) FROM Product p").getSingleResult()).intValue();
 	}
 
 	@Override
@@ -57,11 +57,11 @@ public class ProductRepositoryImpl implements ProductRepository {
 		TypedQuery<Product> query;
 		
 		if (pageable != null) {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c", Product.class);
+			query = slaveEntityManager.createQuery("SELECT p FROM Product p", Product.class);
 			query.setFirstResult(pageable.getPageNumber());
 			query.setMaxResults(pageable.getPageSize());
 		} else {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c.idCategoria", Product.class);
+			query = slaveEntityManager.createQuery("SELECT p FROM Product p ORDER BY p.idProduto", Product.class);
 		}
 		
 		return query.getResultList();

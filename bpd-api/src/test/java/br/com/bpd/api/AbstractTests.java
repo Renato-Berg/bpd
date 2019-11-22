@@ -6,11 +6,9 @@ import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -23,11 +21,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.bpd.api.config.BrasilPrevDigitalApiApplication;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = BrasilPrevDigitalApiApplication.class)
 @WebAppConfiguration
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
+@SpringBootTest(classes = BrasilPrevDigitalApiApplication.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public abstract class AbstractTests {
 
 	protected MockMvc mockMvc;

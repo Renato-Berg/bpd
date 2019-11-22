@@ -49,7 +49,7 @@ public class RequestRepositoryImpl implements RequestRepository {
 
 	@Override
 	public int count() {
-		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(c) FROM Category c").getSingleResult()).intValue();
+		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(r) FROM Request r").getSingleResult()).intValue();
 	}
 
 	@Override
@@ -57,11 +57,11 @@ public class RequestRepositoryImpl implements RequestRepository {
 		TypedQuery<Request> query;
 		
 		if (pageable != null) {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c", Request.class);
+			query = slaveEntityManager.createQuery("SELECT r FROM Request r", Request.class);
 			query.setFirstResult(pageable.getPageNumber());
 			query.setMaxResults(pageable.getPageSize());
 		} else {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c.idCategoria", Request.class);
+			query = slaveEntityManager.createQuery("SELECT r FROM Request r ORDER BY r.idRequest", Request.class);
 		}
 		
 		return query.getResultList();

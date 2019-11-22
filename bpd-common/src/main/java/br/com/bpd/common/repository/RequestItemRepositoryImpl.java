@@ -49,7 +49,7 @@ public class RequestItemRepositoryImpl implements RequestItemRepository {
 
 	@Override
 	public int count() {
-		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(c) FROM Category c").getSingleResult()).intValue();
+		return ((Long) slaveEntityManager.createQuery("SELECT COUNT(ri) FROM RequestItem ri").getSingleResult()).intValue();
 	}
 
 	@Override
@@ -57,11 +57,11 @@ public class RequestItemRepositoryImpl implements RequestItemRepository {
 		TypedQuery<RequestItem> query;
 		
 		if (pageable != null) {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c", RequestItem.class);
+			query = slaveEntityManager.createQuery("SELECT ri FROM RequestItem ri", RequestItem.class);
 			query.setFirstResult(pageable.getPageNumber());
 			query.setMaxResults(pageable.getPageSize());
 		} else {
-			query = slaveEntityManager.createQuery("SELECT c FROM Category c ORDER BY c.idCategoria", RequestItem.class);
+			query = slaveEntityManager.createQuery("SELECT ri FROM RequestItem ri ORDER BY ri.idItem", RequestItem.class);
 		}
 		
 		return query.getResultList();

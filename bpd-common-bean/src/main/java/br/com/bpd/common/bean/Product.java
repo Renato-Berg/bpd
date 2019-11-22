@@ -2,11 +2,15 @@ package br.com.bpd.common.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +23,8 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idProduto", updatable = false, nullable = false)
 	private Long idProduto;
+	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+	@JoinColumn(name="idCategoria")
 	private Category category;
 	@Column(name = "produto")
 	private String product;
@@ -28,6 +34,7 @@ public class Product implements Serializable {
 	private Integer qty;
 	@Column(name = "descricao")
 	private String description;
+	@Lob
 	@Column(name = "foto")
 	private String photo;
 

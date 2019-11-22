@@ -1,7 +1,7 @@
 CREATE TABLE pedidos (
   idPedido bigint(20) NOT NULL AUTO_INCREMENT,
   idCliente bigint(20) NOT NULL,
-  data date,
+  data timestamp,
   status varchar(100),
   sessao varchar(100),
   PRIMARY KEY (idPedido)
